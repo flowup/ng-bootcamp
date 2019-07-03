@@ -1,0 +1,6 @@
+singleQuote: true
+quoteProps: preserve
+trailingComma: all
+bracketSpacing: false
+parser: typescript
+endOfLine: lf
