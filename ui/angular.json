@@ -70,6 +70,18 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "ws": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/services/http/post.service.ts",
+                  "with": "src/app/services/ws/post.service.ts"
+                },
+                {
+                  "replace": "src/app/services/http/reaction.service.ts",
+                  "with": "src/app/services/ws/reaction.service.ts"
+                }
+              ]
             }
           }
         },
@@ -81,6 +93,9 @@
           "configurations": {
             "production": {
               "browserTarget": "ng-bootcamp:build:production"
+            },
+            "ws": {
+              "browserTarget": "ng-bootcamp:build:ws"
             }
           }
         },
