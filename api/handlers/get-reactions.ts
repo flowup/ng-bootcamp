@@ -1,5 +1,5 @@
 import {RequestHandler} from 'express';
-import {Stream} from '../stream';
+import {Stream} from '../utilities';
 import {ApiError, Reaction} from '../types';
 
 export const getReactions = (reactions$: Stream<Reaction>): RequestHandler => (
@@ -14,7 +14,7 @@ export const getReactions = (reactions$: Stream<Reaction>): RequestHandler => (
     return;
   }
 
-  const lastIndex = reactions.findIndex(lastId);
+  const lastIndex = reactions.findIndex(({id}) => id === lastId);
 
   if (lastIndex < 0) {
     const error: ApiError = {
@@ -24,5 +24,5 @@ export const getReactions = (reactions$: Stream<Reaction>): RequestHandler => (
     return;
   }
 
-  res.send(reactions.slice(lastIndex));
+  res.send(reactions.slice(lastIndex + 1));
 };
