@@ -2,3 +2,17 @@
   <div class="header">Welcome to Angular bootcamp</div>
   <app-comments></app-comments>
 </div>
+
+<h1>Posts</h1>
+<pre>{{ posts$ | async | json }}</pre>
+<input
+  placeholder="Post text"
+  (keydown.enter)="sendPost($event.target.value)"
+/>
+
+<h1>Reactions</h1>
+<pre>{{ reactions$ | async | json }}</pre>
+<input
+  placeholder="Post ID"
+  (keydown.enter)="sendReaction($event.target.value)"
+/>
