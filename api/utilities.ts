@@ -5,6 +5,10 @@ export class Stream<T> {
   subscribe(callback: (value: T) => void): () => void {
     this.callbacks = [...this.callbacks, callback];
 
+    for (const value of this.values) {
+      callback(value);
+    }
+
     return () => {
       this.callbacks = this.callbacks.filter(cb => cb !== callback);
     };
@@ -22,3 +26,10 @@ export class Stream<T> {
     return [...this.values];
   }
 }
+
+export const generateId = <T extends {id?: string}>(object: T): T => ({
+  ...object,
+  id: Math.random()
+    .toString(26)
+    .substr(2, 8),
+});
