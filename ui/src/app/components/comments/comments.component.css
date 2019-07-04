@@ -1,0 +1,7 @@
+.comments {
+  border: 1px solid #bfbfbf;
+  box-shadow: #bfbfbf 0 0 30px inset;
+  height: 50vh;
+  min-height: 200px;
+  overflow: auto;
+}
