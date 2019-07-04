@@ -1,5 +1,5 @@
 import {RequestHandler} from 'express';
-import {Stream} from '../stream';
+import {generateId, Stream} from '../utilities';
 import {ApiError, isPost, Post} from '../types';
 
 export const postPosts = (posts$: Stream<Post>): RequestHandler => (
@@ -16,12 +16,6 @@ export const postPosts = (posts$: Stream<Post>): RequestHandler => (
     return;
   }
 
-  posts$.push({
-    ...body,
-    id: Math.random()
-      .toString(26)
-      .substr(2),
-  });
-
-  res.status(201).send(body);
+  posts$.push(generateId(body));
+  res.status(204).send();
 };

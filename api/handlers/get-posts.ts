@@ -1,5 +1,5 @@
 import {RequestHandler} from 'express';
-import {Stream} from '../stream';
+import {Stream} from '../utilities';
 import {ApiError, Post} from '../types';
 
 export const getPosts = (posts$: Stream<Post>): RequestHandler => (
@@ -14,7 +14,7 @@ export const getPosts = (posts$: Stream<Post>): RequestHandler => (
     return;
   }
 
-  const lastIndex = posts.findIndex(lastId);
+  const lastIndex = posts.findIndex(({id}) => id === lastId);
 
   if (lastIndex < 0) {
     const error: ApiError = {
@@ -24,5 +24,5 @@ export const getPosts = (posts$: Stream<Post>): RequestHandler => (
     return;
   }
 
-  res.send(posts.slice(lastIndex));
+  res.send(posts.slice(lastIndex + 1));
 };
