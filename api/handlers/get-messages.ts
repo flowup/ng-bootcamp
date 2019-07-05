@@ -1,8 +1,8 @@
 import {RequestHandler} from 'express';
 import {Stream} from '../utilities';
-import {ApiError, Post} from '../types';
+import {ApiError, Message} from '../types';
 
-export const getPosts = (posts$: Stream<Post>): RequestHandler => (
+export const getMessages = (posts$: Stream<Message>): RequestHandler => (
   req,
   res,
 ) => {

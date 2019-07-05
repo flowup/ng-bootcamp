@@ -1,18 +1,18 @@
 <div class="content">
   <div class="header">Welcome to Angular bootcamp</div>
-  <app-comments></app-comments>
+  <app-messages></app-messages>
 </div>
 
-<h1>Posts</h1>
-<pre>{{ posts$ | async | json }}</pre>
+<h1>Messages</h1>
+<pre>{{ messages$ | async | json }}</pre>
 <input
-  placeholder="Post text"
-  (keydown.enter)="sendPost($event.target.value)"
+  placeholder="Message text"
+  (keydown.enter)="sendMessage($event.target.value)"
 />
 
-<h1>Reactions</h1>
-<pre>{{ reactions$ | async | json }}</pre>
+<h1>Likes</h1>
+<pre>{{ likes$ | async | json }}</pre>
 <input
-  placeholder="Post ID"
-  (keydown.enter)="sendReaction($event.target.value)"
+  placeholder="Message ID"
+  (keydown.enter)="sendLike($event.target.value)"
 />

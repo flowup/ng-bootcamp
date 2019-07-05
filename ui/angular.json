@@ -74,12 +74,12 @@
             "ws": {
               "fileReplacements": [
                 {
-                  "replace": "src/app/services/http/post.service.ts",
-                  "with": "src/app/services/ws/post.service.ts"
+                  "replace": "src/app/services/http/messages.service.ts",
+                  "with": "src/app/services/ws/messages.service.ts"
                 },
                 {
-                  "replace": "src/app/services/http/reaction.service.ts",
-                  "with": "src/app/services/ws/reaction.service.ts"
+                  "replace": "src/app/services/http/likes.service.ts",
+                  "with": "src/app/services/ws/likes.service.ts"
                 }
               ]
             }

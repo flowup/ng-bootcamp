@@ -1,20 +1,20 @@
 import {RequestHandler} from 'express';
 import {Stream} from '../utilities';
-import {ApiError, Reaction} from '../types';
+import {ApiError, Like} from '../types';
 
-export const getReactions = (reactions$: Stream<Reaction>): RequestHandler => (
+export const getLikes = (likes$: Stream<Like>): RequestHandler => (
   req,
   res,
 ) => {
   const {lastId} = req.query;
-  const reactions = reactions$.allValues();
+  const likes = likes$.allValues();
 
   if (lastId == null) {
-    res.send(reactions);
+    res.send(likes);
     return;
   }
 
-  const lastIndex = reactions.findIndex(({id}) => id === lastId);
+  const lastIndex = likes.findIndex(({id}) => id === lastId);
 
   if (lastIndex < 0) {
     const error: ApiError = {
@@ -24,5 +24,5 @@ export const getReactions = (reactions$: Stream<Reaction>): RequestHandler => (
     return;
   }
 
-  res.send(reactions.slice(lastIndex + 1));
+  res.send(likes.slice(lastIndex + 1));
 };
