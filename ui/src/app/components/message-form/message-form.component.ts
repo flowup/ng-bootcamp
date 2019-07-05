@@ -36,6 +36,7 @@ export class MessageFormComponent {
     if (this.form.valid) {
       const { name, color, text } = this.form.value;
       this.messagesService.sendMessage(text, { name, color });
+      this.form.patchValue({ text: '' });
     }
   }
 }
