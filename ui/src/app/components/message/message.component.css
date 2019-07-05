@@ -27,7 +27,7 @@
 
 .time {
   font-size: 12px;
-  opacity: 0.7;
+  color: #424342;
 }
 
 .text-wrapper {
@@ -51,7 +51,7 @@
 .like-icon,
 .likes-count {
   font-size: 18px;
-  color: #2b8b3c;
+  color: #229135;
 }
 
 .like-icon {
