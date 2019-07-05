@@ -3,7 +3,7 @@
     <div class="author" [style.color]="message.author.color">
       {{ message.author.name }}
     </div>
-    <div class="time">{{ message.timestamp | date: 'mediumTime' }}</div>
+    <div class="time">{{ message.timestamp | date: 'HH:mm:ss' }}</div>
   </div>
   <div class="text-wrapper">
     <div class="text">{{ message.text }}</div>
