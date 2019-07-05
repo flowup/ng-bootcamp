@@ -1,14 +1,14 @@
 import {RequestHandler} from 'express';
 import {generateId, Stream} from '../utilities';
-import {ApiError, isReaction, Post, Reaction} from '../types';
+import {ApiError, isNewLike, Message, Like} from '../types';
 
-export const postReactions = (
-  reactions$: Stream<Reaction>,
-  posts$: Stream<Post>,
+export const postLikes = (
+  likes$: Stream<Like>,
+  messages$: Stream<Message>,
 ): RequestHandler => (req, res) => {
   const {body} = req;
 
-  if (!isReaction(body)) {
+  if (!isNewLike(body)) {
     const error: ApiError = {
       error: `Invalid request body`,
     };
@@ -16,14 +16,14 @@ export const postReactions = (
     return;
   }
 
-  if (!posts$.allValues().some(({id}) => id === body.postId)) {
+  if (!messages$.allValues().some(({id}) => id === body.messageId)) {
     const error: ApiError = {
-      error: `Post with ID "${body.postId}" not found`,
+      error: `Post with ID "${body.messageId}" not found`,
     };
     res.status(404).send(error);
     return;
   }
 
-  reactions$.push(generateId(body));
+  likes$.push({...body, id: generateId()});
   res.status(204).send();
 };

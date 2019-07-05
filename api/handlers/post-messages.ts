@@ -1,14 +1,14 @@
 import {RequestHandler} from 'express';
 import {generateId, Stream} from '../utilities';
-import {ApiError, isPost, Post} from '../types';
+import {ApiError, isNewMessage, Message} from '../types';
 
-export const postPosts = (posts$: Stream<Post>): RequestHandler => (
+export const postMessages = (posts$: Stream<Message>): RequestHandler => (
   req,
   res,
 ) => {
   const {body} = req;
 
-  if (!isPost(body)) {
+  if (!isNewMessage(body)) {
     const error: ApiError = {
       error: `Invalid request body`,
     };
@@ -16,6 +16,6 @@ export const postPosts = (posts$: Stream<Post>): RequestHandler => (
     return;
   }
 
-  posts$.push(generateId(body));
+  posts$.push({...body, id: generateId(), timestamp: Date.now()});
   res.status(204).send();
 };

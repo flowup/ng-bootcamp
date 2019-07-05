@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PostService } from './services/http/post.service';
-import { ReactionService } from './services/http/reaction.service';
+import { MessagesService } from './services/http/messages.service';
+import { LikesService } from './services/http/likes.service';
 
 @Component({
   selector: 'app-root',
@@ -8,25 +8,22 @@ import { ReactionService } from './services/http/reaction.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  readonly posts$ = this.postService.posts$;
-  readonly reactions$ = this.reactionService.reactions$;
+  readonly messages$ = this.messagesService.messages$;
+  readonly likes$ = this.likesService.likes$;
 
   constructor(
-    private readonly postService: PostService,
-    private readonly reactionService: ReactionService,
+    private readonly messagesService: MessagesService,
+    private readonly likesService: LikesService,
   ) {}
 
-  sendPost(text: string): void {
-    this.postService.sendPost({
-      author: 'Cucoriedka69',
-      text,
+  sendMessage(text: string): void {
+    this.messagesService.sendMessage(text, {
+      name: 'Cucoriedka69',
+      color: 'red',
     });
   }
 
-  sendReaction(postId: string): void {
-    this.reactionService.sendReaction({
-      type: 'clap',
-      postId,
-    });
+  sendLike(messageId: string): void {
+    this.likesService.sendLike(messageId);
   }
 }

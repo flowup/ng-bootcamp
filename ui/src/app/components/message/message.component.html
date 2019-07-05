@@ -1,0 +1,15 @@
+<div class="message" *ngIf="message">
+  <div class="header">
+    <div class="author" [style.color]="message.author.color">
+      {{ message.author.name }}
+    </div>
+    <div class="time">{{ message.timestamp | date: 'mediumTime' }}</div>
+  </div>
+  <div class="text-wrapper">
+    <div class="text">{{ message.text }}</div>
+    <div class="likes">
+      <i class="material-icons like-icon" (click)="onClick()">thumb_up</i>
+      <span class="likes-count">{{ message.likes || 0 }}</span>
+    </div>
+  </div>
+</div>

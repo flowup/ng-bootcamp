@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { of } from 'rxjs';
-import { CommentModel } from '../../models/comment.model';
+import { MessageWithLikesModel } from '../../models/message-with-likes.model';
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css'],
+  selector: 'app-messages',
+  templateUrl: './messages.component.html',
+  styleUrls: ['./messages.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentsComponent {
-  readonly comments$ = of(
+export class MessagesComponent {
+  readonly messages$ = of(
     Array(15)
       .fill(null)
       .map(
-        (_, i): CommentModel => ({
+        (_, i): MessageWithLikesModel => ({
           id: Math.random()
             .toString(26)
             .substr(2),
@@ -36,7 +36,7 @@ export class CommentsComponent {
       ),
   );
 
-  likeComment(comment: CommentModel): void {
-    console.log('Liked comment', comment);
+  likeMessage(message: MessageWithLikesModel): void {
+    console.log('Liked message', message);
   }
 }

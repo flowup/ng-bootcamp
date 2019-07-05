@@ -1,18 +1,18 @@
 import * as express from 'express';
 import * as expressWs from 'express-ws';
 import * as cors from 'cors';
-import {getPosts} from './handlers/get-posts';
-import {getReactions} from './handlers/get-reactions';
-import {postPosts} from './handlers/post-posts';
-import {postReactions} from './handlers/post-reactions';
-import {wsPosts} from './handlers/ws-posts';
-import {wsReactions} from './handlers/ws-reactions';
+import {getMessages} from './handlers/get-messages';
+import {getLikes} from './handlers/get-likes';
+import {postMessages} from './handlers/post-messages';
+import {postLikes} from './handlers/post-likes';
+import {wsMessages} from './handlers/ws-messages';
+import {wsLikes} from './handlers/ws-likes';
 import {logger} from './middlewares/logger';
 import {Stream} from './utilities';
-import {Post, Reaction} from './types';
+import {Message, Like} from './types';
 
-const posts$ = new Stream<Post>();
-const reactions$ = new Stream<Reaction>();
+const messages$ = new Stream<Message>();
+const likes$ = new Stream<Like>();
 
 const api = (express() as unknown) as expressWs.Application;
 expressWs(api);
@@ -21,12 +21,12 @@ api.use(express.json({type: '*/*'}));
 api.use(cors());
 api.use(logger);
 
-api.ws('/posts/stream', wsPosts(posts$));
-api.get('/posts', getPosts(posts$));
-api.post('/posts', postPosts(posts$));
+api.ws('/messages/stream', wsMessages(messages$));
+api.get('/messages', getMessages(messages$));
+api.post('/messages', postMessages(messages$));
 
-api.ws('/reactions/stream', wsReactions(reactions$, posts$));
-api.get('/reactions', getReactions(reactions$));
-api.post('/reactions', postReactions(reactions$, posts$));
+api.ws('/likes/stream', wsLikes(likes$, messages$));
+api.get('/likes', getLikes(likes$));
+api.post('/likes', postLikes(likes$, messages$));
 
 api.listen(8080);

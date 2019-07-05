@@ -27,9 +27,7 @@ export class Stream<T> {
   }
 }
 
-export const generateId = <T extends {id?: string}>(object: T): T => ({
-  ...object,
-  id: Math.random()
+export const generateId = () =>
+  Math.random()
     .toString(26)
-    .substr(2, 8),
-});
+    .substr(2, 8);

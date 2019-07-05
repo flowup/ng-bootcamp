@@ -1,7 +1,0 @@
-<div class="comments">
-  <app-comment
-    *ngFor="let comment of comments$ | async"
-    [comment]="comment"
-    (commentLiked)="likeComment(comment)"
-  ></app-comment>
-</div>

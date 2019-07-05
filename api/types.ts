@@ -1,31 +1,39 @@
-export interface Post {
-  id?: string;
-  author: string;
+export interface Message {
+  id: string;
+  timestamp: number;
+  author: {
+    name: string;
+    color: string;
+  };
   text: string;
 }
 
-export interface Reaction {
-  id?: string;
-  type: 'clap';
-  postId: string;
+export type NewMessage = Pick<Message, 'author' | 'text'>;
+
+export interface Like {
+  id: string;
+  messageId: string;
 }
+
+export type NewLike = Pick<Like, 'messageId'>;
 
 export interface ApiError {
   error: string;
 }
 
-export function isPost(post: unknown): post is Post {
+export function isNewMessage(message: unknown): message is NewMessage {
   return (
-    post != null &&
-    typeof (post as Post).author === 'string' &&
-    typeof (post as Post).text === 'string'
+    typeof message === 'object' &&
+    message !== null &&
+    message.hasOwnProperty('author') &&
+    message.hasOwnProperty('text')
   );
 }
 
-export function isReaction(reaction: unknown): reaction is Reaction {
+export function isNewLike(like: unknown): like is NewLike {
   return (
-    reaction != null &&
-    (reaction as Reaction).type === 'clap' &&
-    typeof (reaction as Reaction).postId === 'string'
+    typeof like === 'object' &&
+    like !== null &&
+    like.hasOwnProperty('messageId')
   );
 }

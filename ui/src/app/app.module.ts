@@ -3,15 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { CommentComponent } from './components/comment/comment.component';
-import { CommentsComponent } from './components/comments/comments.component';
-import { PostService } from './services/http/post.service';
-import { ReactionService } from './services/http/reaction.service';
+import { MessageComponent } from './components/message/message.component';
+import { MessagesComponent } from './components/messages/messages.component';
+import { MessagesService } from './services/http/messages.service';
+import { LikesService } from './services/http/likes.service';
 
 @NgModule({
-  declarations: [AppComponent, CommentComponent, CommentsComponent],
+  declarations: [AppComponent, MessageComponent, MessagesComponent],
   imports: [BrowserModule, HttpClientModule],
-  providers: [PostService, ReactionService],
+  providers: [MessagesService, LikesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
