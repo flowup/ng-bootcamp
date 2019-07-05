@@ -1,6 +1,6 @@
 <div class="messages">
   <app-message
-    *ngFor="let message of messages$ | async"
+    *ngFor="let message of messages$ | async; trackBy: trackById"
     [message]="message"
     (messageLiked)="likeMessage(message)"
   ></app-message>

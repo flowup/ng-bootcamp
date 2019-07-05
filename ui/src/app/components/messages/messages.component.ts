@@ -20,4 +20,8 @@ export class MessagesComponent {
   likeMessage(message: MessageWithLikesModel): void {
     this.likesService.sendLike(message.id);
   }
+
+  trackById(index: number, message: MessageWithLikesModel): string {
+    return message.id;
+  }
 }
