@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { combineLatest } from 'rxjs';
 import { MessageWithLikesModel } from '../../models/message-with-likes.model';
 import { LikesService } from '../../services/http/likes.service';
 import { MessagesService } from '../../services/http/messages.service';
@@ -10,7 +11,15 @@ import { MessagesService } from '../../services/http/messages.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent {
-  readonly messages$ = this.messagesService.messages$;
+  readonly messages$ = combineLatest(
+    this.messagesService.messages$,
+    this.likesService.likes$,
+    (messages, likes): MessageWithLikesModel[] =>
+      messages.map(message => ({
+        ...message,
+        likes: likes.filter(({ messageId }) => messageId === message.id).length,
+      })),
+  );
 
   constructor(
     private readonly messagesService: MessagesService,
