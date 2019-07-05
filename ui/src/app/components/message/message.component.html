@@ -6,7 +6,7 @@
     <div class="time">{{ message.timestamp | date: 'HH:mm:ss' }}</div>
   </div>
   <div class="text-wrapper">
-    <div class="text">{{ message.text }}</div>
+    <div class="text">{{ message.text | emoji }}</div>
     <div class="likes">
       <i class="material-icons like-icon" (click)="onClick()">thumb_up</i>
       <span class="likes-count">{{ message.likes || 0 }}</span>
