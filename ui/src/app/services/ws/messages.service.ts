@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { environment } from '../../../environments/environment';
 import { AuthorModel } from '../../models/author.model';
+import { MessageWithLikesModel } from '../../models/message-with-likes.model';
 import { MessageModel } from '../../models/message.model';
+import { LikesService } from '../http/likes.service';
 
 @Injectable()
 export class MessagesService {
@@ -13,9 +15,17 @@ export class MessagesService {
     `${environment.apiWsProtocol}://${environment.apiBaseUri}/messages/stream`,
   );
 
-  readonly messages$ = this.messagesState$.asObservable();
+  readonly messages$ = combineLatest(
+    this.messagesState$,
+    this.likesService.likes$,
+    (messages, likes): MessageWithLikesModel[] =>
+      messages.map(message => ({
+        ...message,
+        likes: likes.filter(({ messageId }) => messageId === message.id).length,
+      })),
+  );
 
-  constructor() {
+  constructor(private readonly likesService: LikesService) {
     this.messagesSocket$.subscribe(messages => {
       this.messagesState$.next([...this.messagesState$.value, messages]);
     });

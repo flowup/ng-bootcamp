@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval } from 'rxjs';
+import { BehaviorSubject, combineLatest, interval } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthorModel } from '../../models/author.model';
+import { MessageWithLikesModel } from '../../models/message-with-likes.model';
 import { MessageModel } from '../../models/message.model';
+import { LikesService } from './likes.service';
 
 const REFRESH_INTERVAL = 3000;
 
@@ -11,9 +13,20 @@ const REFRESH_INTERVAL = 3000;
 export class MessagesService {
   private readonly messagesState$ = new BehaviorSubject<MessageModel[]>([]);
 
-  readonly messages$ = this.messagesState$.asObservable();
+  readonly messages$ = combineLatest(
+    this.messagesState$,
+    this.likesService.likes$,
+    (messages, likes): MessageWithLikesModel[] =>
+      messages.map(message => ({
+        ...message,
+        likes: likes.filter(({ messageId }) => messageId === message.id).length,
+      })),
+  );
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly likesService: LikesService,
+  ) {
     interval(REFRESH_INTERVAL).subscribe(() => {
       this.refreshMessages();
     });
