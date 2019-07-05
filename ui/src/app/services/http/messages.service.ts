@@ -17,10 +17,13 @@ export class MessagesService {
     this.messagesState$,
     this.likesService.likes$,
     (messages, likes): MessageWithLikesModel[] =>
-      messages.map(message => ({
-        ...message,
-        likes: likes.filter(({ messageId }) => messageId === message.id).length,
-      })),
+      messages
+        .map(message => ({
+          ...message,
+          likes: likes.filter(({ messageId }) => messageId === message.id)
+            .length,
+        }))
+        .reverse(),
   );
 
   constructor(
