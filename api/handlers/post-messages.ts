@@ -1,6 +1,6 @@
 import {RequestHandler} from 'express';
-import {generateId, Stream} from '../utilities';
 import {ApiError, isNewMessage, Message} from '../types';
+import {addNewId, Stream} from '../utilities';
 
 export const postMessages = (posts$: Stream<Message>): RequestHandler => (
   req,
@@ -16,6 +16,6 @@ export const postMessages = (posts$: Stream<Message>): RequestHandler => (
     return;
   }
 
-  posts$.push({...body, id: generateId(), timestamp: Date.now()});
+  posts$.push({...addNewId(body), timestamp: Date.now()});
   res.status(204).send();
 };

@@ -1,6 +1,6 @@
 import {WebsocketRequestHandler} from 'express-ws';
-import {generateId, Stream} from '../utilities';
 import {Message, NewMessage} from '../types';
+import {addNewId, Stream} from '../utilities';
 
 export const wsMessages = (
   messages$: Stream<Message>,
@@ -12,7 +12,7 @@ export const wsMessages = (
   ws.on('message', data => {
     try {
       const message: NewMessage = JSON.parse(data as string);
-      messages$.push({...message, id: generateId(), timestamp: Date.now()});
+      messages$.push({...addNewId(message), timestamp: Date.now()});
     } catch (e) {}
   });
 
