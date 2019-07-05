@@ -1,0 +1,26 @@
+<form class="form" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="author">
+    <label>
+      Name:
+      <input class="small-input" formControlName="name" required />
+    </label>
+    <div class="color">
+      <label>
+        Color:
+        <input
+          class="small-input"
+          formControlName="color"
+          required
+          pattern="^#[0-9a-f]{6}$"
+          size="7"
+        />
+      </label>
+      <div
+        class="color-preview"
+        [style.background-color]="form.value.color"
+      ></div>
+    </div>
+  </div>
+  <input class="big-input" formControlName="text" required />
+  <button class="submit-button" [disabled]="!form.valid">Submit</button>
+</form>
