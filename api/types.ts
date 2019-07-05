@@ -1,6 +1,4 @@
-export interface Message {
-  id: string;
-  timestamp: number;
+export interface NewMessage {
   author: {
     name: string;
     color: string;
@@ -8,18 +6,24 @@ export interface Message {
   text: string;
 }
 
-export type NewMessage = Pick<Message, 'author' | 'text'>;
-
-export interface Like {
+export interface Message extends NewMessage {
   id: string;
+  timestamp: number;
+}
+
+export interface NewLike {
   messageId: string;
 }
 
-export type NewLike = Pick<Like, 'messageId'>;
+export interface Like extends NewLike {
+  id: string;
+}
 
 export interface ApiError {
   error: string;
 }
+
+// TODO: make these more robust
 
 export function isNewMessage(message: unknown): message is NewMessage {
   return (

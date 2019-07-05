@@ -27,6 +27,11 @@ export class Stream<T> {
   }
 }
 
+export const addNewId = <T>(obj: T): T & {id: string} => ({
+  ...obj,
+  id: generateId(),
+});
+
 export const generateId = () =>
   Math.random()
     .toString(26)

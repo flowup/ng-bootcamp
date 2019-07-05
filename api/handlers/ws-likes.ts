@@ -1,6 +1,6 @@
 import {WebsocketRequestHandler} from 'express-ws';
-import {generateId, Stream} from '../utilities';
-import {Message, Like, NewLike} from '../types';
+import {Like, Message, NewLike} from '../types';
+import {addNewId, Stream} from '../utilities';
 
 export const wsLikes = (
   likes$: Stream<Like>,
@@ -14,7 +14,7 @@ export const wsLikes = (
     try {
       const like: NewLike = JSON.parse(data as string);
       if (messages$.allValues().some(({id}) => id === like.messageId)) {
-        likes$.push({...like, id: generateId()});
+        likes$.push(addNewId(like));
       }
     } catch (e) {}
   });

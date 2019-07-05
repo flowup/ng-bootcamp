@@ -1,6 +1,6 @@
 import {RequestHandler} from 'express';
-import {generateId, Stream} from '../utilities';
-import {ApiError, isNewLike, Message, Like} from '../types';
+import {ApiError, isNewLike, Like, Message} from '../types';
+import {addNewId, Stream} from '../utilities';
 
 export const postLikes = (
   likes$: Stream<Like>,
@@ -24,6 +24,6 @@ export const postLikes = (
     return;
   }
 
-  likes$.push({...body, id: generateId()});
+  likes$.push(addNewId(body));
   res.status(204).send();
 };
