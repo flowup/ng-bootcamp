@@ -2,18 +2,12 @@
   <div class="author">
     <label>
       Name:
-      <input class="small-input" formControlName="name" required />
+      <input class="small-input" formControlName="name" />
     </label>
     <div class="color">
       <label>
         Color:
-        <input
-          class="small-input"
-          formControlName="color"
-          required
-          pattern="^#[0-9a-f]{6}$"
-          size="7"
-        />
+        <input class="small-input" formControlName="color" size="7" />
       </label>
       <div
         class="color-preview"
@@ -25,7 +19,6 @@
     class="big-input"
     formControlName="text"
     placeholder="Write a message ..."
-    required
   />
   <button class="submit-button" [disabled]="!form.valid">Submit</button>
 </form>
