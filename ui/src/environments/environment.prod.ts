@@ -1,8 +1,3 @@
-import { EnvironmentModel } from '../app/models/environment.model';
-
-export const environment: EnvironmentModel = {
+export const environment = {
   production: true,
-  apiBaseUri: 'localhost:8080',
-  apiHttpProtocol: 'http',
-  apiWsProtocol: 'ws',
 };
